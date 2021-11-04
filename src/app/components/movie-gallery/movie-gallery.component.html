@@ -1,0 +1,20 @@
+<app-loader *ngIf="loading && !error" [isFullscreen]="true"></app-loader>
+
+<ng-container *ngIf="!error; else errorMessage">
+  <app-preview [movie]="movie" [isDetailsPage]="true"></app-preview>
+  
+  <div *ngIf="(images$ | async) as images" class="gallery-container">
+    <h1 class="gallery-title">{{ movie.title | titlecase }} - Gallery</h1>
+    <img 
+      *ngFor="let image of images" 
+      [src]="imgUrl + image.file_path" 
+      [alt]="(movie.title | titlecase) + ' Gallery Item'"
+      class="gallery-item"
+      loading="lazy"
+    >
+  </div>
+</ng-container>
+
+<ng-template #errorMessage>
+  <app-error-message *ngIf="error && !loading" [error]="error"></app-error-message>
+</ng-template>

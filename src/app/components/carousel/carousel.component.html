@@ -1,0 +1,25 @@
+<div class="carousel-container">
+  <div class="carousel-content" appSlider [viewportSlideCount]="activeItemCount">
+    <div class="carousel__track">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <button
+    *ngIf="totalItem > activeItemCount"
+    class="carousel-btn left"
+    mat-icon-button color="accent"
+    aria-label="Move to Previus Slide"
+    (click)="prevSlide()"
+  >
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+  <button 
+    *ngIf="totalItem > activeItemCount"
+    class="carousel-btn right"
+    mat-icon-button color="accent"
+    aria-label="Move to Next Slide"
+    (click)="nextSlide()"
+  >
+    <mat-icon>arrow_forward_ios</mat-icon>
+  </button>
+</div>

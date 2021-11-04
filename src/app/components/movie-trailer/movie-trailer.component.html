@@ -1,0 +1,43 @@
+<app-loader *ngIf="loading && !error" [isFullscreen]="true"></app-loader>
+
+<ng-container *ngIf="!error; else errorMessage">
+  <section 
+    *ngIf="(movie$ | async) as movie" 
+    class="trailer-container" 
+    [ngStyle]="{ 'background-image': 'url(' + setBackgroungImageUrl(movie.backdrop_path, movie.poster_path) + ')' }"
+  >
+    <button mat-fab color="accent" class="trailer-container__btn-back" (click)="moveBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <ng-container *ngIf="videos?.length; else noTrailers">
+      <div class="trailer-container__courusel">
+        <app-carousel [totalItem]="videos.length">
+          <iframe 
+            *ngFor="let video of videos"
+            class="trailer-courusel__item"
+            [src]='video.url' 
+            frameborder="0" 
+            allowfullscreen
+          ></iframe>
+        </app-carousel>
+      </div>
+    </ng-container>
+
+    <ng-template #noTrailers>
+      <div class="trailer-container__courusel">
+        <h2 class="message">No trailers to movie {{ movie.title }}</h2>
+      </div>
+    </ng-template>
+
+    <div class="trailer-container__movie">
+      <h1 class="movie-title">{{ movie.title }}</h1>
+      <h2 class="movie-realese">{{ movie.release_date | date: 'MMMM y' }}</h2>
+      <h2 *ngIf="movie.tagline" class="movie-tagline">{{ movie.tagline }}</h2>
+    </div>
+  </section>
+</ng-container>
+
+<ng-template #errorMessage>
+  <app-error-message *ngIf="error && !loading" [error]="error"></app-error-message>
+</ng-template>

@@ -1,0 +1,81 @@
+<app-loader *ngIf="loading && !error" [isFullscreen]="true"></app-loader>
+
+<ng-container *ngIf="!error; else errorMessage">
+  <app-preview *ngIf="(topRatedMovie$ | async) as topRatedMovie" [movie]="topRatedMovie"></app-preview>
+
+  <section *ngIf="(movies$ | async) as movies" class="movie-searcher__container">
+    <header class="movie-searcher__header">
+      <form class="search-form" (ngSubmit)="search($event)">
+        <mat-form-field class="search-form__input">
+          <mat-label>Search</mat-label>
+          <input matInput name="search" [formControl]="searchFormControl" placeholder="Search" required>
+          <mat-error *ngIf="searchFormControl.hasError('required')">
+            Search query is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+  
+        <button mat-raised-button type="submit" color="accent" [disabled]="!searchFormControl.valid">Search</button>
+      </form>
+      <h2>Total Results: {{ movies.total_results || 0 }}</h2>
+    </header>
+    <ng-container *ngIf="movies && movies.results && movies.results.length; else noContent">
+      <main class="movie-searcher__list">
+        <mat-card class="movie-card" *ngFor="let movie of movies.results">
+          <ng-container *ngIf="movie.poster_path || movie.backdrop_path; else noImage">
+            <img
+              mat-card-image 
+              class="movie-poster"
+              src="{{ imgUrl + (movie.poster_path || movie.backdrop_path) }}" 
+              alt="{{ movie.title | titlecase }} Poster"
+              loading="lazy"
+            >
+          </ng-container>
+          
+          <ng-template #noImage>
+            <img
+              *ngIf="!movie.poster_path && !movie.backdrop_path"
+              mat-card-image 
+              class="movie-poster"
+              src="./assets/default.jpg" 
+              alt="{{ movie.title | titlecase }} Poster"
+              loading="lazy"
+            >
+          </ng-template>
+          <mat-card-header>
+            <mat-card-title>{{ movie.title | titlecase }}</mat-card-title>
+            <span class="spacer"></span>
+            <p class="popularity" title="Popularity">
+              <mat-icon color="warn">grades</mat-icon>
+              <span>{{ movie.popularity }}</span>
+            </p>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="movie-overview">
+              {{ movie.overview }}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="primary" routerLink="/movie/{{ movie.id }}">VIEW DETAILS</button>
+          </mat-card-actions>
+        </mat-card>
+      </main>
+    </ng-container>
+    <footer class="movie-searcher__paginator" *ngIf="movies.total_pages > 1">
+      <mat-paginator
+        [pageSize]="movies.results.length"
+        [length]="movies.total_results"
+        showFirstLastButtons
+        (page)="updateList($event)"
+        #matPaginator
+      ></mat-paginator>
+    </footer>
+  </section>
+</ng-container>
+
+<ng-template #noContent>
+  <p *ngIf="!error" class="center">No results.</p>
+</ng-template>
+
+<ng-template #errorMessage>
+  <app-error-message *ngIf="error && !loading" [error]="error"></app-error-message>
+</ng-template>

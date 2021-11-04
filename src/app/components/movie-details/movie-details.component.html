@@ -1,0 +1,80 @@
+<app-loader *ngIf="loading && !error" [isFullscreen]="true"></app-loader>
+
+<ng-container *ngIf="!error; else errorMessage">
+  <ng-container *ngIf="(movie$ | async) as movie">
+    <app-preview [movie]="movie" [isDetailsPage]="true"></app-preview>
+    <div class="movie-details">
+      <aside class="movie-details__general">
+        <img class="movie-details__poster" [src]="setPosterImageUrl(movie.poster_path, movie.backdrop_path)" alt="{{ movie.title | titlecase }} Poster">
+        <div *ngIf="movie.genres.length" class="movie-details__item">
+          <h2 class="movie-details__item-title">Genres</h2>
+          <p class="movie-details__item-content">{{ movie.genres | spreadnames }}</p>
+        </div>
+        <div *ngIf="movie.status" class="movie-details__item">
+          <h2 class="movie-details__item-title">Status</h2>
+          <p class="movie-details__item-content">{{ movie.status }}</p>
+        </div>
+        <div *ngIf="movie.original_language" class="movie-details__item">
+          <h2 class="movie-details__item-title">Original Language</h2>
+          <p class="movie-details__item-content">{{ movie.original_language | titlecase }}</p>
+        </div>
+        <div *ngIf="movie.production_countries.length" class="movie-details__item">
+          <h2 class="movie-details__item-title">Countries</h2>
+          <p class="movie-details__item-content">{{ movie.production_countries | spreadnames }}</p>
+        </div>
+        <div *ngIf="movie.budget" class="movie-details__item">
+          <h2 class="movie-details__item-title">Budget</h2>
+          <p class="movie-details__item-content">{{ movie.budget | currency }}</p>
+        </div>
+        <div *ngIf="movie.revenue" class="movie-details__item">
+          <h2 class="movie-details__item-title">Revenue</h2>
+          <p class="movie-details__item-content">{{ movie.revenue | currency }}</p>
+        </div>
+        <div *ngIf="movie.homepage" class="movie-details__item">
+          <h2 class="movie-details__item-title">Official Site</h2>
+          <p class="movie-details__item-content"><a [href]="movie.homepage">{{ movie.homepage }}</a></p>
+        </div>
+      </aside>
+      <article class="movie-details__content">
+        <div class="movie-details__overview">
+          <h2 class="movie-details__header">Overview</h2>
+          <p *ngIf="movie.overview" class="movie-details__overview-content">{{ movie.overview }}</p>
+          <p *ngIf="!movie.overview" class="no-content">No overview to {{ movie.title }}.</p>
+        </div>
+        <div *ngIf="images$ | async as images;" class="movie-details__gallery">
+          <h2 class="movie-details__header">Photo Gallery</h2>
+          <section *ngIf="images.length" class="movie-details__gallery-content">
+            <img *ngFor="let image of images" class="movie-details__gallery-item" [src]="imgUrl + image.file_path" alt="{{ movie.title | titlecase }} Image" loading="lazy">
+          </section>
+          <button *ngIf="images.length > 5" mat-button color="primary" class="movie-details__btn" (click)="goToGallery()">VIEW ALL</button>
+          <p *ngIf="!images.length" class="no-content">No any photo related to the {{ movie.title }}.</p>
+        </div>
+      </article>
+    </div>
+    <div *ngIf="(relatedMovies$ | async) as relatedMovies" class="movies-related">
+      <h2 class="movies-related__header">Related Movies</h2>
+      <app-carousel *ngIf="relatedMovies.length" [totalItem]="relatedMovies.length" [activeItemCount]="4">
+        <mat-card *ngFor="let relMovie of relatedMovies" class="movies-related__item">
+          <img 
+            mat-card-image 
+            class="movies-related__poster" 
+            src="{{ imgUrl + relMovie.poster_path }}" 
+            alt="{{ relMovie.title | titlecase }} Poster"
+            loading="lazy"
+          >
+          <mat-card-header>
+            <mat-card-title>{{ relMovie.title | titlecase }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions>
+            <button mat-button color="primary" class="" (click)="openDetails(relMovie.id)">VIEW DETAILS</button>
+          </mat-card-actions>
+        </mat-card>
+      </app-carousel>
+      <p *ngIf="!relatedMovies.length" class="no-content">No any movie similar to the {{ movie.title }}.</p>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #errorMessage>
+  <app-error-message *ngIf="error && !loading" [error]="error"></app-error-message>
+</ng-template>

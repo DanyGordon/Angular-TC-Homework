@@ -1,0 +1,56 @@
+.trailer-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 64px 5rem 0;
+  display: flex;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+}
+.trailer-container__btn-back {
+  position: absolute;
+  top: 5rem;
+  left: 2rem;
+}
+.trailer-container__movie {
+  margin: 0 0 10rem 10rem;
+  padding: 2rem 1rem;
+  color: #fff;
+  font-size: 1rem;
+}
+.movie-title {
+  font-size: 4rem;
+  line-height: 6rem;
+}
+.movie-realese {
+  font-size: 2rem;
+}
+.movie-tagline {
+  max-width: 175px;
+  white-space: pre-wrap;
+  font-size: 1.5rem;
+  margin: 5rem auto 0;
+  padding: 2rem 0;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+.trailer-container__courusel {
+  max-width: 1150px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.trailer-courusel__item {
+  flex: 0 0 calc(1075px - 1.5rem);
+  min-height: 600px;
+  margin: 0 1rem;
+}
+.message {
+  font-size: 2rem;
+  line-height: 3rem;
+  color: #fff;
+}

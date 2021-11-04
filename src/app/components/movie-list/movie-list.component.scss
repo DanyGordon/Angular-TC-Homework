@@ -1,0 +1,56 @@
+.movie-discover__container {
+  padding: 1rem 5rem;
+}
+.movie-discover__header {
+  width: 100%;
+  padding: 1rem 1rem .5rem;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+.discover-options__form {
+  width: 100%;
+  padding-top: .5rem;
+  display: flex;
+  align-items: center;
+}
+.fieled-title {
+  margin: 0 1rem 0 0;
+  display: inline-flex;
+  color: #757575;
+}
+.mat-form-field,
+.mat-checkbox {
+  margin-right: 1.5rem;
+}
+.mat-slider__container {
+  max-width: 400px;
+  flex: 1 1 auto;
+  margin: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mat-slider__label {
+  color: #0000008a;
+  font-size: .65625rem;
+  margin: 0;
+}
+.mat-slider {
+  margin-bottom: 1rem;
+}
+.movie-discover__list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.movie-card {
+  width: 400px;
+  margin: 1rem;
+}
+.mat-paginator {
+  display: flex;
+  justify-content: center;
+}

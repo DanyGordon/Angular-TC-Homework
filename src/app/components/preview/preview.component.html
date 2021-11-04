@@ -1,0 +1,33 @@
+<div 
+  *ngIf="movie" 
+  class="movie-background" 
+  [ngStyle]="{ 'background-image': 'url(' + setBackgroungImageUrl(movie.backdrop_path, movie.poster_path) + ')' }"
+>
+  <button *ngIf="isDetailsPage" mat-fab color="accent" class="preview-btn__back" (click)="moveBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <div class="movie-info">
+    <h2 *ngIf="!isDetailsPage" class="movie-subtitle">Top Rated Movie in Ukraine</h2>
+    <p class="movie-realese__year">{{ movie.release_date | date: 'Y' }}</p>
+    <h1 class="movie-title">{{ movie.title }} <span *ngIf="movie.adult">18+</span></h1>
+    <h2 *ngIf="movie.tagline" class="movie-subtitle">{{ movie.tagline }}</h2>
+    <p *ngIf="movie.runtime" class="movie-duration">
+      <mat-icon aria-label="runtime" color="accent" class="movie-duration__icon">schedule</mat-icon>
+      {{ movie.runtime }} {{ 'min' | uppercase }}
+    </p>
+    <div class="movie-votes">
+      <span 
+        [matBadge]="movie.vote_average"
+        matBadgeSize="medium"
+        matBadgeColor="accent"
+        class="movie-votes__average"
+        title="Average Votes"
+      ></span>
+      <span class="movie-votes__count">{{ movie.vote_count }} votes</span>
+    </div>
+  </div>
+  <div class="btn-group">
+    <button *ngIf="!isDetailsPage" mat-raised-button color="accent" class="movie-btn" routerLink="/movie/{{ movie.id }}">View Details</button>
+    <button mat-raised-button color="accent" class="movie-btn" routerLink="/movie/{{ movie.id }}/trailer">Watch Trailer</button>
+  </div>
+</div>

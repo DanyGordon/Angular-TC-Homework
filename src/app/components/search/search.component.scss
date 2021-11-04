@@ -1,0 +1,41 @@
+.movie-searcher__container {
+  margin: 1rem 5rem;
+}
+.movie-searcher__header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1rem .5rem;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+.search-form {
+  flex: 1 1 auto;
+  margin: 0 1rem;
+  display: flex;
+  align-items: baseline;
+}
+.search-form__input {
+  width: 70%;
+  margin-right: 2rem;
+}
+.movie-searcher__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
+.movie-card {
+  max-width: 400px;
+  margin: 1rem;
+}
+.mat-paginator {
+  display: flex;
+  justify-content: center;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #000 !important;
+}

@@ -1,11 +1,121 @@
-<div *ngIf="movie">
-    <div>
-        <span>Movie Title: </span><span>{{ movie.title }}</span>
-    </div>
-    <div>
-        <span>Movie Votes: </span><span>{{ movie.vote_average }}</span>
-    </div>
-    <div>
-        <span>Movie Release Date: </span><span>{{ movie.release_date}}</span>
-    </div>
-</div>
+<app-loader *ngIf="loading && !error" [isFullscreen]="true"></app-loader>
+
+<ng-container *ngIf="!error; else errorMessage">
+
+  <app-preview *ngIf="(topRatedMovie$ | async) as topRatedMovie" [movie]="topRatedMovie"></app-preview>
+  
+  <section class="suggestion-container">
+    <mat-tab-group>
+      <mat-tab *ngIf="(nowPlayingMovies$ | async) as nowPlayingMovies">
+        <ng-template mat-tab-label>
+          Playing Now Movies
+          <span class="spacer"></span>
+          <mat-icon aria-hidden="false" aria-label="Now Playing" color="accent">calendar_today</mat-icon>
+        </ng-template>
+        <main class="suggestion-content">
+          <mat-card class="movie-card" *ngFor="let movie of nowPlayingMovies">
+            <img 
+              mat-card-image 
+              class="movie-poster" 
+              src="{{ imgUrl + movie.poster_path }}" 
+              alt="{{ movie.title | titlecase }} Poster"
+            >
+            <mat-card-header>
+              <mat-card-title>{{ movie.title | titlecase }}</mat-card-title>
+              <span class="spacer"></span>
+              <p class="popularity" title="Popularity">
+                <mat-icon color="warn">grades</mat-icon>
+                <span>{{ movie.popularity }}</span>
+              </p>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="movie-overview">
+                {{ movie.overview }}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary" class="" routerLink="/movie/{{ movie.id }}">VIEW DETAILS</button>
+            </mat-card-actions>
+          </mat-card>
+        </main>
+      </mat-tab>
+
+      <mat-tab *ngIf="(trendingMovies$ | async) as trendingMovies">
+        <ng-template mat-tab-label>
+          Tranding Movies
+          <span class="spacer"></span>
+          <mat-icon aria-hidden="false" aria-label="Trending" color="accent">trending_up</mat-icon>
+        </ng-template>
+        <main class="suggestion-content">
+          <mat-card class="movie-card" *ngFor="let movie of trendingMovies">
+            <img 
+              mat-card-image 
+              class="movie-poster" 
+              src="{{ imgUrl + movie.poster_path }}" 
+              alt="{{ movie.title | titlecase }} Poster"
+            >
+            <mat-card-header>
+              <mat-card-title>{{ movie.title | titlecase }}</mat-card-title>
+              <span class="spacer"></span>
+              <p class="popularity" title="Popularity">
+                <mat-icon color="warn">grades</mat-icon>
+                <span>{{ movie.popularity }}</span>
+              </p>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="movie-overview">
+                {{ movie.overview }}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary" class="" routerLink="/movie/{{ movie.id }}">VIEW DETAILS</button>
+            </mat-card-actions>
+          </mat-card>
+        </main>
+      </mat-tab>
+
+      <mat-tab *ngIf="(popularMovies$ | async) as popularMovies">
+        <ng-template mat-tab-label>
+          Popular Movies
+          <span class="spacer"></span>
+          <mat-icon aria-hidden="false" aria-label="Popular" color="accent">grades</mat-icon>
+        </ng-template>
+        <main class="suggestion-content">
+          <mat-card class="movie-card" *ngFor="let movie of popularMovies">
+            <img 
+              mat-card-image 
+              class="movie-poster" 
+              src="{{ imgUrl + movie.poster_path }}" 
+              alt="{{ movie.title | titlecase }} Poster"
+            >
+            <mat-card-header>
+              <mat-card-title>{{ movie.title | titlecase }}</mat-card-title>
+              <span class="spacer"></span>
+              <p class="popularity" title="Popularity">
+                <mat-icon color="warn">grades</mat-icon>
+                <span>{{ movie.popularity }}</span>
+              </p>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="movie-overview">
+                {{ movie.overview }}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary" class="" routerLink="/movie/{{ movie.id }}">VIEW DETAILS</button>
+            </mat-card-actions>
+          </mat-card>
+        </main>
+      </mat-tab>
+    </mat-tab-group>
+  </section>
+  
+  <div *ngIf="!loading && !error" class="features-container flex-row-center">
+    <button mat-raised-button color="primary" class="btn-features" routerLink="/movie">Discover and search more movies...</button>
+  </div>
+  
+</ng-container>
+
+<ng-template #errorMessage>
+  <app-error-message *ngIf="error && !loading" [error]="error"></app-error-message>
+</ng-template>

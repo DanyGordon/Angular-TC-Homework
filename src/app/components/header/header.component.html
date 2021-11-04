@@ -1,0 +1,39 @@
+<mat-toolbar>
+  <span class="logo" routerLink="">Angular Movies</span>
+  <span class="spacer"></span>
+  <mat-form-field class="toolbar-searcher">
+    <input matInput name="search" [(ngModel)]="search" placeholder="Search" (keydown.enter)="searchMovie()" minlength="1" #searcher>
+  </mat-form-field>
+  <button mat-icon-button class="toolbar-searcher__btn" aria-label="Search Button" (click)="searchMovie()">
+    <mat-icon>search</mat-icon>
+  </button>
+  <button 
+    mat-button class="nav-link" 
+    [routerLinkActiveOptions]="{exact:true}" 
+    routerLink="/" 
+    routerLinkActive="link-active"
+  >
+    Home
+  </button>
+  <button 
+    mat-button class="nav-link"
+    routerLink="/movie"
+    [ngClass]="{ 'link-active': isActive('/movie') }"
+  >
+    Discover Movies
+  </button>
+  <button 
+    mat-button class="nav-link"
+    routerLink="/top-rated"
+    [ngClass]="{ 'link-active': isActive('/top-rated') }"
+  >
+    Top Rated
+  </button>
+  <button 
+    mat-button class="nav-link"
+    routerLink="/upcoming"
+    [ngClass]="{ 'link-active': isActive('/upcoming') }"
+  >
+    Upcoming Movies
+  </button>
+</mat-toolbar>

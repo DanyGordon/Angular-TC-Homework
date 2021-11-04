@@ -1,0 +1,26 @@
+.mat-toolbar {
+  position: absolute;
+  background: #00000061;
+  color: #cdcdcd;
+  box-shadow: 0 0 5px 2px #ffffff25;
+  z-index: 10;
+}
+.logo {
+  cursor: pointer;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.toolbar-searcher {
+  font-size: .9rem;
+}
+.link-active {
+  color: #ffd740;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #fff !important;
+}

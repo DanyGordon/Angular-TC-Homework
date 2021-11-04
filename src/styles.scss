@@ -1,1 +1,79 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+html, body { 
+  height: 100%; 
+}
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+.page-content {
+  height: calc(100% - 64px - 4rem);
+  display: flex;
+  flex-direction: column;
+}
+.suggestion-container {
+  margin: 2rem;
+  padding: 1rem 2rem;
+}
+.suggestion-header {
+  display: flex;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #aaa;
+}
+.suggestion-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.btn-features {
+  margin: 1rem auto;
+  padding: 1rem;
+}
+.flex-row-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.no-content,
+.center {
+  padding: 3rem 0 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 2rem;
+  letter-spacing: 1px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.movie-card {
+  width: 450px;
+  margin: 2rem 0 0;
+}
+.movie-poster {
+  width: 450px;
+}
+.popularity {
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-left: .5rem;
+    padding-top: 2px;
+  }
+}
+.movie-overview {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  -webkit-box-orient: vertical; 
+  line-height: 1.5rem;
+  font-size: 1rem;
+}
+app-carousel {
+  width: 100%;
+}

@@ -1,0 +1,27 @@
+.carousel-container {
+  position: relative;
+  width: 100%;
+  padding: 0 2rem;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+
+  &.left {
+    left: 0;
+  }
+  &.right {
+    right: 0;
+  }
+}
+.carousel-content {
+  width: 100%;
+  overflow-x: hidden;
+}
+.carousel__track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  transition-timing-function: linear;
+  transition-duration: 300ms;
+}
